@@ -3,13 +3,27 @@
 
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include <iostream>
 
 // ***NOTE*** wait at least 40ms before trying to access registers
 
 class DPS310{
     private:
+        // Pinout config
         int CS_PIN;
         spi_inst_t* SPI_PORT;
+
+        // Coefficient scaling factors
+        int16_t c0;
+        int16_t c1;
+        int32_t c00;
+        int32_t c10;
+        int16_t c01;
+        int16_t c11;
+        int16_t c20;
+        int16_t c21;
+        int16_t c30;
+
     public:
 
         // Constructor
@@ -132,16 +146,18 @@ class DPS310{
         // 6:0 - reserved
 
         struct PressureData {
-            unsigned int pressure    : 24;
-            unsigned int temperature : 24;
+            int32_t pressure;
+            int32_t temperature;
         };
 
         void reset();
-        void config(uint8_t CFG_DAT, uint8_t MEAS_DAT, uint8_t PRS_DAT, uint8_t TMP_DAT);
+        bool config(uint8_t CFG_DAT, uint8_t MEAS_DAT, uint8_t PRS_DAT, uint8_t TMP_DAT);
         uint8_t whoAmI();
         void writeRegister(uint8_t reg, uint8_t data);
         uint8_t readRegister(uint8_t reg);
-        PressureData readData();
+        void readCoefficients();
+        bool checkMeasureStatus();
+        PressureData rawData();
+        PressureData scaledData(bool isPSI, bool isFahrenheit);
 };
-
 #endif
