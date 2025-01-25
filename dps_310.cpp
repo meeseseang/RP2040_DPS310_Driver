@@ -19,6 +19,8 @@ DPS310::DPS310(int CS, int MOSI, int MISO, int SCLK, spi_inst_t* SPI)
                     SPI_CPOL_1,     // Polarity (CPOL)
                     SPI_CPHA_1,     // Phase (CPHA)
                     SPI_MSB_FIRST);
+
+    readCoefficients();
 }
 
 uint8_t DPS310::whoAmI()
