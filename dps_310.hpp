@@ -27,7 +27,7 @@ class DPS310{
     public:
 
         // Constructor
-        DPS310(int CS, int MOSI, int MISO, int SCLK, spi_inst_t* SPI_PORT);
+        DPS310(int CS, spi_inst_t* SPI_PORT);
 
         // Register definitions
         static constexpr uint8_t PSR_B2     = 0x00;
@@ -107,7 +107,7 @@ class DPS310{
         static constexpr uint8_t CFG_REG    = 0x09;
         // INT & FIFO CFG_REG configuration
         // Bit - associated field - function:options
-        // 7 - INT_HL - Interrupt (on SDO pin) acative level: 0-active low, 1-active high
+        // 7 - INT_HL - Interrupt (on SDO pin) active level: 0-active low, 1-active high
         // 6 - INT_FIFO - Generate interrupt when FIFO is full: 0-disable, 1-enable
         // 5 - INT_TMP - Generate interrupt when a temperature measurement is ready: 0-disable, 1-enable
         // 4 - INT_PRS - Generate interrupt when pressure measurement is available: 0-disable, 1-enable

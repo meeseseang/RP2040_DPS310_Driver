@@ -92,7 +92,7 @@ int main() {
     stdio_init_all();
 
     // Create a DPS310 object
-    DPS310 sensor(CS_PIN, MOSI_PIN, MISO_PIN, SCLK_PIN, SPI_PORT);
+    DPS310 sensor(CS_PIN, SPI_PORT);
 
     // Wait for the sensor to initialize (minimum 40ms as per documentation)
     sleep_ms(40);
