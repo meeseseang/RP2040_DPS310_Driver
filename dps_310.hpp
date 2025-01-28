@@ -23,6 +23,12 @@ class DPS310{
         int16_t c20;
         int16_t c21;
         int16_t c30;
+        float kP;
+        float kT;
+
+        // Bitshift check
+        bool bitShiftPress;
+        bool bitShiftTemp;
 
     public:
 
